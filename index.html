@@ -1,623 +1,700 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Биржа и с чем её едят | MillsCome</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: var(--dark);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-            margin-bottom: 2rem;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        article {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-        
-        h2 {
-            color: var(--primary);
-            margin-top: 2.5rem;
-            font-size: 1.8rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-        }
-        
-        h3 {
-            color: var(--secondary);
-            margin-top: 1.8rem;
-            font-size: 1.4rem;
-        }
-        
-        p {
-            margin-bottom: 1.2rem;
-        }
-        
-        ul, ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-        
-        li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .highlight {
-            background-color: rgba(67, 97, 238, 0.1);
-            padding: 1.5rem;
-            border-left: 4px solid var(--primary);
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--light-gray);
-        }
-        
-        th {
-            background-color: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-        
-        tr:nth-child(even) {
-            background-color: var(--light);
-        }
-        
-        tr:hover {
-            background-color: rgba(67, 97, 238, 0.05);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .quote {
-            font-style: italic;
-            color: var(--gray);
-            border-left: 3px solid var(--accent);
-            padding-left: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .author {
-            font-weight: 600;
-            color: var(--dark);
-            margin-top: 0.5rem;
-        }
-        
-        .warning {
-            background-color: rgba(247, 37, 133, 0.1);
-            padding: 1.5rem;
-            border-left: 4px solid var(--accent);
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
-        
-        .steps {
-            counter-reset: step-counter;
-            margin: 2rem 0;
-        }
-        
-        .step {
-            position: relative;
-            padding-left: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .step::before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2.5rem;
-            height: 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            article {
-                padding: 1.5rem;
-            }
-        }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        article {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .highlight, .warning, table {
-            animation: fadeIn 0.4s ease forwards;
-            animation-delay: 0.2s;
-            opacity: 0;
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>МастерЗамок — Экстренное вскрытие замков 24/7</title>
+<meta name="description" content="Вскрытие замков без повреждений. Выезд 15 минут. Круглосуточно."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#c9a84c;
+  --gl:rgba(201,168,76,.12);
+  --bg:#060709;
+  --bg2:#0a0c11;
+  --card:#0e1118;
+  --txt:#e8e4dc;
+  --dim:#6b6b7a;
+  --red:#e63946;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+canvas#c{position:fixed;inset:0;z-index:0;pointer-events:none}
+.z{position:relative;z-index:1}
+
+a{text-decoration:none;color:inherit}
+
+.hdr{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,4vw,48px);
+  height:clamp(58px,8vw,72px);
+  background:rgba(6,7,9,.88);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(201,168,76,.08);
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:34px;height:34px;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.3);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-mark svg{width:18px;height:18px;color:var(--g)}
+.logo-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,3vw,22px);letter-spacing:.08em;color:var(--g);line-height:1}
+.logo-sub{font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;line-height:1;margin-top:2px}
+
+.hdr-r{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
+.live{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--g);letter-spacing:.08em;text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.hcta{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px clamp(14px,2vw,20px);
+  background:var(--g);color:#0a0800;
+  font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  border-radius:3px;
+  transition:all .2s;
+}
+.hcta:hover{background:#e8c96a;box-shadow:0 0 24px rgba(201,168,76,.45);transform:translateY(-1px)}
+.hcta svg{width:13px;height:13px;flex-shrink:0}
+
+.hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(80px,12vw,120px) clamp(16px,6vw,80px) clamp(48px,6vw,72px);
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg-img{
+  position:absolute;inset:0;z-index:0;
+  background:
+    linear-gradient(to right,rgba(6,7,9,.98) 35%,rgba(6,7,9,.5) 70%,rgba(6,7,9,.2) 100%),
+    linear-gradient(to bottom,rgba(6,7,9,.3) 0%,rgba(6,7,9,.0) 40%,rgba(6,7,9,.7) 100%);
+  pointer-events:none;
+}
+.hero-bg-img img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.55) saturate(.7) contrast(1.1);
+  mix-blend-mode:normal;
+}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:clamp(18px,3vw,28px);
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g);
+}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--g)}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(54px,10vw,130px);
+  line-height:.92;
+  letter-spacing:.02em;
+  color:#fff;
+  margin-bottom:clamp(16px,2.5vw,24px);
+}
+.hero-h1 em{color:var(--g);font-style:normal;display:block}
+.hero-body{
+  font-size:clamp(14px,1.6vw,16px);
+  color:rgba(232,228,220,.65);
+  max-width:460px;
+  line-height:1.75;
+  margin-bottom:clamp(28px,4vw,44px);
+}
+.hero-row{display:flex;align-items:center;gap:clamp(12px,2.5vw,20px);flex-wrap:wrap}
+.btn-xl{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:clamp(12px,2vw,16px) clamp(22px,3.5vw,36px);
+  background:var(--g);color:#080600;
+  font-size:clamp(13px,1.4vw,15px);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:3px;
+  transition:all .22s;
+}
+.btn-xl:hover{background:#e8c96a;box-shadow:0 0 40px rgba(201,168,76,.5);transform:translateY(-2px)}
+.btn-xl svg{width:17px;height:17px;flex-shrink:0}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:clamp(12px,2vw,16px) clamp(22px,3.5vw,36px);
+  border:1px solid rgba(201,168,76,.3);
+  color:var(--g);
+  font-size:clamp(13px,1.4vw,15px);font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:3px;
+  transition:all .22s;
+}
+.btn-ghost:hover{background:rgba(201,168,76,.08);border-color:var(--g);transform:translateY(-2px)}
+.btn-ghost svg{width:17px;height:17px;flex-shrink:0}
+
+.hero-stats{
+  display:flex;gap:clamp(20px,4vw,48px);
+  margin-top:clamp(36px,5vw,60px);
+  padding-top:clamp(24px,3.5vw,36px);
+  border-top:1px solid rgba(201,168,76,.1);
+}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);color:var(--g);line-height:1;letter-spacing:.04em}
+.stat-lbl{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+.ticker-wrap{overflow:hidden;border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);padding:14px 0;background:rgba(6,7,9,.95)}
+.ticker-track{display:flex;width:max-content;animation:ticker 22s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:0 32px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--g);white-space:nowrap;
+}
+.ticker-item::before{content:'·';opacity:.4}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.section{padding:clamp(64px,10vw,120px) clamp(16px,6vw,80px)}
+.sec-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g);margin-bottom:clamp(12px,2vw,18px)}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5.5vw,72px);line-height:.95;letter-spacing:.03em;color:#fff;margin-bottom:clamp(12px,2vw,20px)}
+.sec-h span{color:var(--g)}
+.sec-sub{font-size:clamp(14px,1.5vw,15px);color:var(--dim);max-width:520px;line-height:1.7}
+
+.adv{background:var(--bg2)}
+.adv-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  margin-top:clamp(36px,5vw,60px);
+  background:rgba(201,168,76,.08);
+  border:1px solid rgba(201,168,76,.08);
+  border-radius:6px;
+  overflow:hidden;
+}
+.adv-card{
+  background:var(--card);
+  padding:clamp(24px,3vw,40px) clamp(20px,2.5vw,32px);
+  position:relative;
+  transition:background .3s;
+  opacity:0;transform:translateY(24px);
+}
+.adv-card.vis{animation:fadeUp .55s ease forwards}
+.adv-card:nth-child(2){animation-delay:.1s}
+.adv-card:nth-child(3){animation-delay:.2s}
+.adv-card:nth-child(4){animation-delay:.3s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.adv-card:hover{background:rgba(16,18,26,1)}
+.adv-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.adv-card:hover::after{opacity:1}
+.adv-num{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);
+  color:rgba(201,168,76,.07);line-height:1;
+  position:absolute;top:16px;right:20px;
+  letter-spacing:.04em;
+}
+.adv-icon{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:clamp(16px,2.5vw,24px);
+  color:var(--g);
+  transition:all .3s;
+}
+.adv-card:hover .adv-icon{background:rgba(201,168,76,.18);box-shadow:0 0 20px rgba(201,168,76,.25)}
+.adv-icon svg{width:20px;height:20px}
+.adv-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2vw,24px);letter-spacing:.04em;color:#fff;margin-bottom:10px}
+.adv-desc{font-size:clamp(13px,1.3vw,14px);color:var(--dim);line-height:1.65}
+
+.svc{
+  position:relative;
+  background:
+    linear-gradient(to right,var(--bg) 0%,rgba(201,168,76,.015) 50%,var(--bg) 100%);
+}
+.svc-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start;margin-top:clamp(36px,5vw,60px)}
+.svc-list{display:flex;flex-direction:column;gap:2px}
+.svc-item{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:clamp(18px,2.5vw,26px) 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:default;
+  opacity:0;transform:translateX(-18px);
+  transition:background .2s;
+}
+.svc-item.vis{animation:slideR .45s ease forwards}
+.svc-item:nth-child(2){animation-delay:.08s}
+.svc-item:nth-child(3){animation-delay:.16s}
+.svc-item:nth-child(4){animation-delay:.24s}
+.svc-item:nth-child(5){animation-delay:.32s}
+.svc-item:nth-child(6){animation-delay:.4s}
+@keyframes slideR{to{opacity:1;transform:translateX(0)}}
+.svc-item:hover .svc-n{color:var(--g)}
+.svc-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,40px);color:rgba(201,168,76,.2);line-height:1;min-width:clamp(36px,4vw,52px);transition:color .3s}
+.svc-body{}
+.svc-name{font-size:clamp(14px,1.5vw,16px);font-weight:600;color:#fff;margin-bottom:5px}
+.svc-desc{font-size:clamp(12px,1.3vw,13px);color:var(--dim);line-height:1.6}
+.svc-image{
+  position:sticky;top:100px;
+  border-radius:4px;overflow:hidden;
+  aspect-ratio:4/5;
+  border:1px solid rgba(201,168,76,.12);
+}
+.svc-image img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) contrast(1.1);transition:transform .6s ease}
+.svc-image:hover img{transform:scale(1.04)}
+.svc-image-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(6,7,9,.9) 0%,transparent 100%);
+  padding:20px 18px 18px;
+  font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.06em;
+}
+
+.photo-strip{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:200px 200px;
+  gap:8px;
+}
+.ps-item{overflow:hidden;border-radius:4px;position:relative;border:1px solid rgba(201,168,76,.08)}
+.ps-item:first-child{grid-row:1/3}
+.ps-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.85);transition:transform .5s ease,filter .3s}
+.ps-item:hover img{transform:scale(1.06);filter:brightness(.85) saturate(.9)}
+.ps-item::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06),transparent);pointer-events:none}
+.ps-lbl{position:absolute;bottom:8px;right:10px;font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.05em;z-index:2}
+
+.contact-section{
+  background:var(--bg2);
+  border-top:1px solid rgba(201,168,76,.08);
+  position:relative;overflow:hidden;
+}
+.contact-section::before{
+  content:'';position:absolute;top:-120px;right:-120px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-inner{max-width:720px}
+.contact-phone{
+  display:block;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,9vw,100px);
+  letter-spacing:.02em;
+  line-height:1;
+  color:#fff;
+  margin:clamp(20px,3vw,32px) 0;
+  transition:color .2s;
+}
+.contact-phone:hover{color:var(--g)}
+.contact-phone span{color:var(--g)}
+.contact-note{font-size:clamp(13px,1.4vw,14px);color:var(--dim);margin-bottom:clamp(28px,4vw,40px);line-height:1.6}
+.contact-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,40px)}
+.btn-tg{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 24px;
+  background:#229ED9;color:#fff;
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  border-radius:3px;
+  transition:all .2s;
+}
+.btn-tg:hover{background:#1a8dbf;transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,158,217,.3)}
+.btn-tg svg{width:16px;height:16px}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 24px;
+  background:#25D366;color:#fff;
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  border-radius:3px;
+  transition:all .2s;
+}
+.btn-wa:hover{background:#1eb356;transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,.3)}
+.btn-wa svg{width:16px;height:16px}
+.services-tags{display:flex;flex-wrap:wrap;gap:8px}
+.s-tag{
+  padding:8px 16px;
+  border:1px solid rgba(201,168,76,.2);
+  background:rgba(201,168,76,.05);
+  border-radius:2px;
+  font-size:12px;font-weight:500;
+  color:rgba(201,168,76,.8);
+  letter-spacing:.04em;
+}
+
+.sos{
+  position:fixed;
+  bottom:clamp(16px,3vw,28px);
+  right:clamp(16px,3vw,28px);
+  z-index:300;
+  display:flex;align-items:center;gap:10px;
+}
+.sos-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:58px;height:58px;
+  border-radius:50%;
+  background:var(--g);
+  box-shadow:0 0 0 0 rgba(201,168,76,.5);
+  animation:sosPulse 2.4s ease-in-out infinite;
+  transition:transform .2s,background .2s;
+  color:#080600;
+}
+.sos-btn:hover{transform:scale(1.08);background:#e8c96a;animation:none}
+.sos-btn svg{width:26px;height:26px}
+@keyframes sosPulse{
+  0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}
+  60%{box-shadow:0 0 0 18px rgba(201,168,76,0)}
+  100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}
+}
+.sos-label{
+  display:none;
+  flex-direction:column;
+  background:rgba(6,7,9,.95);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:4px;
+  padding:8px 14px;
+  font-size:11px;
+  white-space:nowrap;
+}
+@media(min-width:480px){.sos-label{display:flex}}
+.sos-label strong{font-size:13px;font-weight:700;color:var(--g)}
+.sos-label span{color:var(--dim);margin-top:1px;letter-spacing:.04em;text-transform:uppercase}
+
+footer{
+  padding:clamp(24px,4vw,36px) clamp(16px,6vw,80px);
+  border-top:1px solid rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.fc{font-size:11px;color:var(--dim);letter-spacing:.04em}
+.fm{font-size:10px;color:rgba(107,107,122,.4);background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.08);padding:4px 10px;border-radius:2px;letter-spacing:.05em}
+
+@media(max-width:1024px){
+  .adv-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-layout{grid-template-columns:1fr}
+  .svc-image{position:relative;top:0;aspect-ratio:16/9;order:-1}
+}
+@media(max-width:768px){
+  .hero{padding:90px 16px 40px;justify-content:flex-end}
+  .hero-bg-img{background:linear-gradient(to bottom,rgba(6,7,9,.6) 0%,rgba(6,7,9,.85) 60%,rgba(6,7,9,.97) 100%)}
+  .hero-stats{flex-wrap:wrap;gap:20px}
+  .hero-h1{font-size:clamp(50px,14vw,80px)}
+  .live{display:none}
+  .photo-strip{grid-template-columns:1fr 1fr;grid-template-rows:150px 150px}
+  .ps-item:first-child{grid-row:1;grid-column:1/3}
+  .adv-grid{grid-template-columns:1fr}
+  .adv-num{display:none}
+  footer{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  .hero-row{flex-direction:column;align-items:stretch}
+  .btn-xl,.btn-ghost{justify-content:center}
+  .contact-btns{flex-direction:column}
+  .btn-tg,.btn-wa,.btn-xl{justify-content:center}
+  .hcta span{display:none}
+  .hero-stats{gap:16px 28px}
+  .sos-label{display:none}
+}
+</style>
 </head>
 <body>
-  <!-- Кнопка "На главную" -->
-<div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-    <a href="https://golpool092.github.io/main/" 
-       style="display: inline-block; 
-              background: white; 
-              color: #4361ee; 
-              padding: 0.6rem 1.2rem; 
-              border-radius: 8px; 
-              text-decoration: none; 
-              font-weight: 500;
-              box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-              border: 1px solid #e9ecef;
-              transition: all 0.3s ease;">
-        ← На главную
-    </a>
-</div>
-    <header>
-        <div class="container">
-            <h1>Биржа и с чем её едят</h1
-            <!-- Вставить после <header> и перед первым <p> статьи -->
-<div class="ad-telegram" style="background: rgba(67, 97, 238, 0.1); padding: 1rem; border-radius: 8px; margin: 1.5rem 0; text-align: center;">
-    <p style="margin-bottom: 0.5rem; font-weight: 500;">🚀 Хотите больше полезного контента?</p>
-    <a href="https://t.me/MillsCome" class="btn" target="_blank" style="background: linear-gradient(135deg, #0088cc, #005580);">Подписаться на наш Telegram</a>
-</div>
-            <p class="subtitle">Полное руководство по фондовому рынку для начинающих: от основ до первых инвестиций</p>
-        </div>
-    </header>
-    
-    <div class="container">
-        <article>
-            <p>Фондовый рынок — это место, где встречаются компании, нуждающиеся в финансировании, и инвесторы, желающие заработать на росте этих компаний. Но за кажущейся простотой скрывается сложный механизм, требующий глубокого понимания. В этой статье мы разберём все аспекты биржевой торговли: от базовых понятий до стратегий инвестирования.</p>
-            
-            <h2>Что такое биржа и как она работает</h2>
-            <p>Фондовая биржа — это организованный рынок, где покупают и продают ценные бумаги: акции, облигации, ETF и другие финансовые инструменты. Основные функции биржи:</p>
-            
-            <ul>
-                <li><strong>Обеспечение ликвидности</strong> — возможность быстро купить или продать актив по рыночной цене</li>
-                <li><strong>Ценообразование</strong> — определение справедливой стоимости ценных бумаг через баланс спроса и предложения</li>
-                <li><strong>Защита прав инвесторов</strong> — контроль за соблюдением правил всеми участниками</li>
-                <li><strong>Привлечение капитала</strong> — помощь компаниям в поиске финансирования для развития</li>
-            </ul>
-            
-            <div class="highlight">
-                <p>Крупнейшие мировые биржи: NYSE (Нью-Йорк), NASDAQ (технологические компании), LSE (Лондон), TSE (Токио), MOEX (Москва). В 2023 году капитализация NYSE превысила $25 трлн — это больше ВВП США!</p>
-            </div>
-            
-            <h2>Основные участники биржевого рынка</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Участник</th>
-                        <th>Роль</th>
-                        <th>Мотивация</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Эмитенты</td>
-                        <td>Компании, выпускающие ценные бумаги</td>
-                        <td>Привлечение капитала для развития бизнеса</td>
-                    </tr>
-                    <tr>
-                        <td>Инвесторы</td>
-                        <td>Физические и юридические лица, покупающие ценные бумаги</td>
-                        <td>Получение дохода от роста стоимости и дивидендов</td>
-                    </tr>
-                    <tr>
-                        <td>Брокеры</td>
-                        <td>Посредники между инвесторами и биржей</td>
-                        <td>Комиссия за сделки и обслуживание</td>
-                    </tr>
-                    <tr>
-                        <td>Маркет-мейкеры</td>
-                        <td>Обеспечивают ликвидность, постоянно выставляя котировки</td>
-                        <td>Заработок на спреде (разнице между ценой покупки и продажи)</td>
-                    </tr>
-                    <tr>
-                        <td>Регуляторы</td>
-                        <td>Контролируют соблюдение правил (ЦБ, SEC, FINRA)</td>
-                        <td>Поддержание стабильности и прозрачности рынка</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2>Как начать инвестировать: пошаговое руководство</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <h3>Определите свои цели и горизонт инвестирования</h3>
-                    <p>Ответьте на вопросы: Зачем вы инвестируете? (пенсия, крупная покупка, пассивный доход) На какой срок? Какой уровень риска готовы принять? От этого зависит выбор инструментов.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Выберите брокера</h3>
-                    <p>Критерии выбора: надежность (лицензия), комиссии, удобство платформы, доступ к нужным биржам, образовательные ресурсы. Популярные в России: Тинькофф Инвестиции, ВТБ, СберИнвест, Финам.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Откройте брокерский счет</h3>
-                    <p>Можно ИИС (индивидуальный инвестиционный счет) с налоговыми льготами или обычный счет. Для ИИС есть два типа налоговых вычетов: на взнос (13% от 400 тыс. в год) и освобождение от налога на доход.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Пополните счет</h3>
-                    <p>Начните с суммы, которую готовы рисковать. Для первых шагов достаточно 10-30 тыс. рублей. Важно: не инвестируйте заемные средства и "последние деньги".</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Сформируйте портфель</h3>
-                    <p>Диверсифицируйте инвестиции по отраслям, валютам, типам активов. Начинающим подойдут ETF — готовые корзины акций с минимальным порогом входа.</p>
-                </div>
-                
-                <div class="step">
-                    <h3>Регулярно пополняйте и ребалансируйте портфель</h3>
-                    <p>Инвестируйте фиксированные суммы регулярно (долларовая стоимость усреднения). Раз в год корректируйте пропорции активов согласно первоначальной стратегии.</p>
-                </div>
-            </div>
-            
-            <div class="quote">
-                <p>"Инвестирование — это процесс перераспределения богатства от нетерпеливых к терпеливым."</p>
-                <div class="author">— Уоррен Баффет</div>
-            </div>
-            
-            <h2>Основные финансовые инструменты</h2>
-            
-            <h3>Акции</h3>
-            <p>Доля в собственности компании. Дают право на часть прибыли (дивиденды) и участие в управлении (на собрании акционеров). Виды:</p>
-            <ul>
-                <li><strong>Обыкновенные</strong> — право голоса, дивиденды не гарантированы</li>
-                <li><strong>Привилегированные</strong> — фиксированные дивиденды, но нет права голоса</li>
-                <li><strong>Голубые фишки</strong> — акции крупных надежных компаний (Газпром, Сбербанк, Apple)</li>
-                <li><strong>Акции роста</strong> — компании, быстро увеличивающие выручку (Tesla, технологические стартапы)</li>
-                <li><strong>Дивидендные акции</strong> — стабильные компании с высокими выплатами (МТС, Лукойл)</li>
-            </ul>
-            <!-- Вставить после закрывающего </ul> раздела про ETF -->
-<div class="ad-telegram" style="background: #f8f9fa; border-left: 4px solid #f72585; padding: 1rem; border-radius: 0 8px 8px 0; margin: 2rem 0; text-align: center;">
-    <p style="margin-bottom: 0.5rem; font-style: italic;">Тут могла быть ваша реклама</p>
-    <p style="margin-bottom: 0.5rem;">Подробности в нашем <a href="https://t.me/MillsCome" target="_blank" style="color: #4361ee; font-weight: 500;">Telegram-канале</a></p>
-</div>
-            
-            <h3>Облигации</h3>
-            <p>Долговые ценные бумаги с фиксированным доходом. Компания или государство берут у вас в долг под процент. Виды:</p>
-            <ul>
-                <li><strong>Государственные (ОФЗ)</strong> — низкая доходность, но высокая надежность</li>
-                <li><strong>Корпоративные</strong> — более высокий процент, но и риски</li>
-                <li><strong>Муниципальные</strong> — выпускаются регионами и городами</li>
-                <li><strong>Еврооблигации</strong> — номинированы в иностранной валюте</li>
-            </ul>
-            
-            <h3>ETF (биржевые инвестиционные фонды)</h3>
-            <p>Готовый портфель акций/облигаций, торгуемый как одна акция. Позволяют за небольшие деньги инвестировать в сотни компаний. Примеры:</p>
-            <ul>
-                <li><strong>FXRL</strong> — копирует индекс Мосбиржи (голубые фишки России)</li>
-                <li><strong>SBSP</strong> — акции S&P 500 (500 крупнейших компаний США)</li>
-                <li><strong>VTBE</strong> — глобальные облигации</li>
-                <li><strong>Отраслевые ETF</strong> — технологии, здравоохранение, "зелёная" энергетика</li>
-            </ul>
-            
-            <div class="warning">
-                <h3>Важно!</h3>
-                <p>ETF бывают разные: одни физически владеют акциями, другие используют деривативы. Начинающим лучше выбирать ETF с физическим реплицированием — они прозрачнее и надежнее.</p>
-            </div>
-            
-            <h2>Риски биржевых инвестиций</h2>
-            
-            <h3>Основные виды рисков:</h3>
-            <ul>
-                <li><strong>Рыночный риск</strong> — падение стоимости активов из-за кризисов, политики и т.д.</li>
-                <li><strong>Кредитный риск</strong> — эмитент облигаций может не выплатить долг</li>
-                <li><strong>Валютный риск</strong> — колебания курсов влияют на доходность</li>
-                <li><strong>Ликвидности</strong> — нельзя быстро продать актив без потери в цене</li>
-                <li><strong>Инфляционный</strong> — доходность ниже инфляции означает реальные убытки</li>
-            </ul>
-            
-            <h3>Как снизить риски:</h3>
-            <ol>
-                <li><strong>Диверсификация</strong> — не кладите все яйца в одну корзину (минимум 10-15 разных активов)</li>
-                <li><strong>Инвестиционный горизонт</strong> — на длинных сроках (5+ лет) рыночные колебания сглаживаются</li>
-                <li><strong>Ребалансировка</strong> — регулярно приводите портфель к первоначальному соотношению активов</li>
-                <li><strong>Долларовая стоимость усреднения</strong> — покупайте активы регулярно фиксированными суммами</li>
-                <li><strong>Стратегия "купи и держи"</strong> — меньше сделок = меньше комиссий и эмоциональных ошибок</li>
-            </ol>
-            
-            <h2>Стратегии инвестирования</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Стратегия</th>
-                        <th>Описание</th>
-                        <th>Плюсы</th>
-                        <th>Минусы</th>
-                        <th>Для кого</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Пассивное инвестирование</td>
-                        <td>Покупка ETF, копирующих индексы, с долгосрочным удержанием</td>
-                        <td>Минимум времени, низкие комиссии, исторически хорошая доходность</td>
-                        <td>Нельзя "обыграть" рынок, доходность как у индекса</td>
-                        <td>Начинающие, занятые люди</td>
-                    </tr>
-                    <tr>
-                        <td>Дивидендная стратегия</td>
-                        <td>Отбор акций с высокими и стабильными дивидендами</td>
-                        <td>Регулярный доход, меньше волатильности</td>
-                        <td>Низкий рост капитала, налоги на дивиденды</td>
-                        <td>Консервативные инвесторы, пенсионеры</td>
-                    </tr>
-                    <tr>
-                        <td>Роста</td>
-                        <td>Инвестиции в быстрорастущие компании (часто технологические)</td>
-                        <td>Высокий потенциал доходности</td>
-                        <td>Высокие риски, волатильность</td>
-                        <td>Молодые инвесторы с долгим горизонтом</td>
-                    </tr>
-                    <tr>
-                        <td>Стоимостная</td>
-                        <td>Поиск недооцененных акций (низкие P/E, P/B)</td>
-                        <td>Маржа безопасности, проверенная методика</td>
-                        <td>Требует глубокого анализа, возможны "ловушки стоимости"</td>
-                        <td>Опытные, терпеливые инвесторы</td>
-                    </tr>
-                    <tr>
-                        <td>Активная торговля</td>
-                        <td>Частые сделки на основе технического анализа, новостей</td>
-                        <td>Возможность быстрой прибыли</td>
-                        <td>Высокие комиссии, стресс, 90% трейдеров теряют деньги</td>
-                        <td>Профессионалы (не рекомендуется начинающим)</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="highlight">
-                <h3>Золотые правила биржевого инвестора</h3>
-                <ol>
-                    <li>Инвестируйте только в то, что понимаете</li>
-                    <li>Диверсифицируйте портфель (по отраслям, валютам, странам)</li>
-                    <li>Не поддавайтесь эмоциям (страх и жадность — главные враги)</li>
-                    <li>Реинвестируйте доходы — используйте силу сложного процента</li>
-                    <li>Регулярно обучайтесь — рынки меняются, ваши знания тоже должны</li>
-                </ol>
-            </div>
-            
-            <h2>Психология инвестирования</h2>
-            <p>80% успеха в инвестициях — это контроль эмоций. Основные психологические ловушки:</p>
-            
-            <ul>
-                <li><strong>Стадное чувство</strong> — покупка на пике ажиотажа (когда все уже купили)</li>
-                <li><strong>Эффект владения</strong> — нежелание продавать убыточные активы ("авось отыграется")</li>
-                <li><strong>Подтверждающее искажение</strong> — поиск только той информации, которая подтверждает ваше мнение</li> 
-                <li><strong>Избыточная уверенность</strong> — переоценка своих способностей после нескольких удачных сделок</li>
-                <li><strong>Азарт</strong> — восприятие инвестиций как игры или казино</li>
-            </ul>
-            
-            <div class="quote">
-                <p>"Самое важное качество для инвестора — темперамент, а не интеллект. Вам не нужно быть гением, вам нужно уметь контролировать импульсы, которые губительны для большинства инвесторов."</p>
-                <div class="author">— Уоррен Баффет</div>
-            </div>
-            
-            <h2>Налогообложение инвестиций</h2>
-            
-            <h3>Основные налоги для инвесторов в России:</h3>
-            <ul>
-                <li><strong>НДФЛ 13%</strong> — с доходов от продажи ценных бумаг (если владели менее 3 лет)</li>
-                <li><strong>Налог на дивиденды</strong> — 13% для резидентов (обычно удерживает эмитент)</li>
-                <li><strong>Налог на купонный доход</strong> — 13% по облигациям (кроме ОФЗ и муниципальных)</li>
-                <li><strong>Налог на валютную переоценку</strong> — при продаже валюты или валютных активов с прибылью</li>
-            </ul>
-            
-            <h3>Как законно снизить налоги:</h3>
-            <ol>
-                <li><strong>ИИС типа А</strong> — вычет 13% от внесённой суммы (до 52 тыс. руб. в год)</li>
-                <li><strong>ИИС типа Б</strong> — освобождение от НДФЛ на весь доход по счету через 3 года</li>
-                <li><strong>Долгосрочное владение</strong> — после 3 лет владения акциями НДФЛ не платится</li>
-                <li><strong>Учёт убытков</strong> — можно зачесть убытки от одних сделок против прибыли от других</li>
-            </ol>
-            
-            <div class="warning">
-                <h3>Внимание!</h3>
-                <p>С 2021 года в России действует налог на доход от вкладов и инвестиций свыше 1 млн руб. в год (ставка 13%). Учитывайте это при планировании стратегии.</p>
-            </div>
-            
-            <h2>Полезные ресурсы для начинающего инвестора</h2>
-            
-            <h3>Книги:</h3>
-            <ul>
-                <li>"Разумный инвестор" — Бенджамин Грэм</li>
-                <li>"Маленькая книга победителя рынка акций" — Джоэл Гринблатт</li>
-                <li>"Путь к финансовой свободе" — Бодо Шефер</li>
-                <li>"Психология инвестирования" — Джейсон Цвейг</li>
-                <li>"Коэффициент интеллекта инвестора" — Джон Богл</li>
-            </ul>
-            
-            <h3>Сайты и сервисы:</h3>
-            <ul>
-                <li>Investing.com — котировки, аналитика, экономический календарь</li>
-                <li>Smart-lab.ru — аналитика по российскому рынку, блоги инвесторов</li>
-                <li>Мосбиржа — официальный сайт с обучающими материалами</li>
-                <li>Finviz.com — скринер акций с мощными фильтрами</li>
-                <li>Portfolio Visualizer — тестирование стратегий на исторических данных</li>
-            </ul>
-            
-            <div style="text-align: center; margin: 3rem 0;">
-                <a href="https://t.me/MillsCome" class="btn" target="_blank" style="background: linear-gradient(135deg, #0088cc, #005580);"> Ждем ваших заказов на рекламу! </a>
-            </div>
-            <!-- Вставить перед последним <h2> "Заключение" -->
-<div class="ad-telegram" style="background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(247, 37, 133, 0.1)); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;">
-    <h3 style="color: #3a0ca3; margin-top: 0;">Присоединяйтесь к нашему сообществу!</h3>
-    <p style="margin-bottom: 1rem;">Ежедневно полезный контент об инвестициях и не только</p>
-    <a href="https://t.me/MillsCome" class="btn" target="_blank" style="background: linear-gradient(135deg, #0088cc, #005580);">Перейти в Telegram</a>
-</div>
-            <h2>Заключение</h2>
-            <p>Биржа — это мощный инструмент для приумножения капитала, но требующий знаний, дисциплины и терпения. Начинайте с малого, инвестируйте регулярно, диверсифицируйте риски и постоянно обучайтесь. Помните: успешное инвестирование — это марафон, а не спринт. За 10-15 лет систематических инвестиций даже скромные суммы могут превратиться в значительный капитал благодаря сложному проценту.</p>
-            
-            <p>Главное — начать. Сегодня — лучшее время для первых инвестиций!</p>
-        </article>
+
+<canvas id="c"></canvas>
+
+<div class="z">
+
+<header class="hdr">
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0110 0v4"/>
+      </svg>
     </div>
-    
-    <footer>
-        <p>© 2024 MillsCome. Все права защищены. Информация предоставлена в образовательных целях и не является инвестиционной рекомендацией.</p>
-        <!-- Вставить перед закрывающим </footer> -->
-<div style="text-align: center; margin-top: 1.5rem;">
-    <p style="margin-bottom: 0.5rem;">Следите за обновлениями:</p>
-    <a href="https://t.me/MillsCome" target="_blank" style="display: inline-block; background: #0088cc; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 500;">
-        Наш Telegram-канал
+    <div>
+      <div class="logo-name">МастерЗамок</div>
+      <div class="logo-sub">макет · XXXXX-XX-XX</div>
+    </div>
+  </a>
+  <div class="hdr-r">
+    <span class="live"><span class="live-dot"></span>Работаем 24/7</span>
+    <a href="tel:+70000000000" class="hcta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.37 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.28 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      <span>Позвонить</span>
     </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=85&auto=format&fit=crop" alt="макет" loading="eager"/>
+  </div>
+  <div class="hero-content z">
+    <div class="hero-eyebrow">Экстренный выезд — профессионально</div>
+    <h1 class="hero-h1">Вскрытие<em>замков</em>24/7</h1>
+    <p class="hero-body">Мастер приедет за 15 минут. Работаем без повреждений замка и двери. Официальная деятельность, договор на месте.</p>
+    <div class="hero-row">
+      <a href="tel:+70000000000" class="btn-xl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.37 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.28 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        Позвонить мастеру
+      </a>
+      <a href="https://t.me/example" class="btn-ghost" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 14.4l-2.95-.924c-.642-.204-.657-.642.136-.953l11.526-4.443c.535-.194 1.003.13.59.168z"/>
+        </svg>
+        Написать в Telegram
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">15</div><div class="stat-lbl">мин. прибытие</div></div>
+      <div><div class="stat-val">5+</div><div class="stat-lbl">лет опыта</div></div>
+      <div><div class="stat-val">24/7</div><div class="stat-lbl">без выходных</div></div>
+      <div><div class="stat-val">0</div><div class="stat-lbl">повреждений</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap z">
+  <div class="ticker-track" id="tt"></div>
 </div>
-    </footer>
-    
-    <script>
-        // Анимация при прокрутке
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('h2, h3, .highlight, .warning, table, ul, ol');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.animation = 'fadeIn 0.6s ease forwards';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                observer.observe(el);
-            });
-            
-            // Плавная прокрутка для якорей
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script> 
+
+<section class="section adv z">
+  <div class="sec-tag">Почему выбирают нас</div>
+  <h2 class="sec-h">Четыре причины <span>доверять</span></h2>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <div class="adv-num">01</div>
+      <div class="adv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="adv-title">Приезд за 15 минут</div>
+      <p class="adv-desc">Мастер выедет немедленно. Гарантируем прибытие в течение 15 минут в пределах города.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-num">02</div>
+      <div class="adv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="adv-title">Без повреждений</div>
+      <p class="adv-desc">Профессиональный инструмент и отработанная техника полностью сохраняют дверь, замок и раму.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-num">03</div>
+      <div class="adv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <div class="adv-title">Опыт от 5 лет</div>
+      <p class="adv-desc">Работаем с любыми замками: цилиндровые, сувальдные, кодовые, электронные — любые бренды.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-num">04</div>
+      <div class="adv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+      <div class="adv-title">Работаем официально</div>
+      <p class="adv-desc">Официальная деятельность, договор и документы мастера на каждый выезд. Полная юридическая чистота.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section svc z">
+  <div class="sec-tag">Услуги</div>
+  <h2 class="sec-h">Что мы <span>открываем</span></h2>
+  <div class="svc-layout">
+    <div class="svc-list">
+      <div class="svc-item">
+        <span class="svc-n">01</span>
+        <div class="svc-body"><div class="svc-name">Входные двери квартир</div><p class="svc-desc">Металлические, деревянные, бронированные двери. Без повреждений полотна и замка.</p></div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-n">02</span>
+        <div class="svc-body"><div class="svc-name">Вскрытие автомобилей</div><p class="svc-desc">Все марки и модели. Без царапин на кузове и без вреда для электроники.</p></div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-n">03</span>
+        <div class="svc-body"><div class="svc-name">Офисные помещения</div><p class="svc-desc">Офисы, переговорные, кладовые, межкомнатные двери любой сложности.</p></div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-n">04</span>
+        <div class="svc-body"><div class="svc-name">Сейфы и кодовые замки</div><p class="svc-desc">Открытие сейфов, сброс кода и замена механизма при необходимости.</p></div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-n">05</span>
+        <div class="svc-body"><div class="svc-name">Прикурить автомобиль</div><p class="svc-desc">Экстренная помощь при разряженном аккумуляторе. Выезд по городу.</p></div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-n">06</span>
+        <div class="svc-body"><div class="svc-name">Установка замков</div><p class="svc-desc">Установка нового надёжного замка после вскрытия или по отдельному запросу.</p></div>
+      </div>
+    </div>
+    <div class="svc-image">
+      <img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=800&q=80&auto=format&fit=crop" alt="макет"/>
+      <div class="svc-image-label">макет — замените фото на реальное</div>
+    </div>
+  </div>
+</section>
+
+<section class="section z" style="padding-top:0">
+  <div class="sec-tag">Примеры работ</div>
+  <h2 class="sec-h" style="margin-bottom:clamp(24px,3.5vw,40px)">Профессиональный <span>подход</span></h2>
+  <div class="photo-strip">
+    <div class="ps-item"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=75&auto=format&fit=crop" alt="макет" loading="lazy"/><span class="ps-lbl">макет</span></div>
+    <div class="ps-item"><img src="https://images.unsplash.com/photo-1504222490345-c075b626b559?w=500&q=75&auto=format&fit=crop" alt="макет" loading="lazy"/><span class="ps-lbl">макет</span></div>
+    <div class="ps-item"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500&q=75&auto=format&fit=crop" alt="макет" loading="lazy"/><span class="ps-lbl">макет</span></div>
+    <div class="ps-item"><img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=500&q=75&auto=format&fit=crop" alt="макет" loading="lazy"/><span class="ps-lbl">макет</span></div>
+    <div class="ps-item"><img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=75&auto=format&fit=crop" alt="макет" loading="lazy"/><span class="ps-lbl">макет</span></div>
+  </div>
+</section>
+
+<section class="section contact-section z" id="contact">
+  <div class="contact-inner">
+    <div class="sec-tag">Связаться</div>
+    <h2 class="sec-h">Звоните — <span>ответим</span><br>немедленно</h2>
+    <a href="tel:+70000000000" class="contact-phone"><span>+7</span> (000) 000-00-00</a>
+    <p class="contact-note">Номер телефона макета — замените на реальный контакт. Отвечаем круглосуточно.</p>
+    <div class="contact-btns">
+      <a href="https://t.me/example" class="btn-tg" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 14.4l-2.95-.924c-.642-.204-.657-.642.136-.953l11.526-4.443c.535-.194 1.003.13.59.168z"/></svg>
+        Telegram
+      </a>
+      <a href="https://wa.me/70000000000" class="btn-wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="tel:+70000000000" class="btn-xl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.37 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.28 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        Позвонить сейчас
+      </a>
+    </div>
+    <div class="services-tags">
+      <span class="s-tag">Вскрытие замков</span>
+      <span class="s-tag">Прикурить авто</span>
+      <span class="s-tag">Вскрытие сейфов</span>
+      <span class="s-tag">Установка замков</span>
+      <span class="s-tag">Круглосуточно</span>
+    </div>
+  </div>
+</section>
+
+<footer class="z">
+  <span class="fc">© 2026 МастерЗамок — Макет. Все права защищены.</span>
+  <span class="fm">макет — замените контактные данные</span>
+</footer>
+
+</div>
+
+<div class="sos z">
+  <div class="sos-label">
+    <strong>+7 (000) 000-00-00</strong>
+    <span>Вызов мастера</span>
+  </div>
+  <a href="tel:+70000000000" class="sos-btn" aria-label="Позвонить">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.37 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.28 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  const ITEMS=['Вскрытие замков','Выезд 15 минут','Без повреждений','Работаем 24/7','Прикуривание авто','Вскрытие сейфов','Официально','Гарантия результата','Любые замки','Опыт 5 лет'];
+  const tt=document.getElementById('tt');
+  const joined=[...ITEMS,...ITEMS].map(t=>`<span class="ticker-item">${t}</span>`).join('');
+  tt.innerHTML=joined+joined;
+
+  const cv=document.getElementById('c');
+  const cx=cv.getContext('2d');
+  let W,H;
+  const mx={x:-9999,y:-9999};
+  const G={r:201,g:168,b:76};
+  const N=90;
+  const CD=150;
+  const MD=160;
+  const pts=[];
+
+  function sz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+
+  class P{
+    reset(init){
+      this.x=Math.random()*W;
+      this.y=init?Math.random()*H:(Math.random()<.5?-8:H+8);
+      this.vx=(Math.random()-.5)*.3;
+      this.vy=(Math.random()-.5)*.3;
+      this.r=Math.random()*1.4+.4;
+      this.a=Math.random()*.45+.15;
+    }
+    constructor(){this.reset(true)}
+    tick(){
+      const dx=mx.x-this.x,dy=mx.y-this.y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<MD){const f=(MD-d)/MD;this.vx-=(dx/d)*f*.035;this.vy-=(dy/d)*f*.035}
+      this.vx*=.992;this.vy*=.992;
+      this.x+=this.vx;this.y+=this.vy;
+      if(this.x<-16||this.x>W+16||this.y<-16||this.y>H+16)this.reset(false);
+    }
+    draw(){
+      cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      cx.fillStyle=`rgba(${G.r},${G.g},${G.b},${this.a})`;cx.fill();
+    }
+  }
+
+  function init(){pts.length=0;for(let i=0;i<N;i++)pts.push(new P())}
+
+  function frame(){
+    cx.clearRect(0,0,W,H);
+    const rg=cx.createRadialGradient(W*.7,H*.15,0,W*.7,H*.15,W*.55);
+    rg.addColorStop(0,'rgba(201,168,76,.022)');rg.addColorStop(1,'rgba(6,7,9,0)');
+    cx.fillStyle=rg;cx.fillRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const a=pts[i],b=pts[j];
+        const dx=a.x-b.x,dy=a.y-b.y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<CD){
+          const al=(1-d/CD)*.15;
+          cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);
+          cx.strokeStyle=`rgba(${G.r},${G.g},${G.b},${al})`;
+          cx.lineWidth=.7;cx.stroke();
+        }
+      }
+    }
+    for(let i=0;i<pts.length;i++){
+      const p=pts[i];
+      const dx=p.x-mx.x,dy=p.y-mx.y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<MD){
+        const al=(1-d/MD)*.3;
+        cx.beginPath();cx.moveTo(mx.x,mx.y);cx.lineTo(p.x,p.y);
+        cx.strokeStyle=`rgba(${G.r},${G.g},${G.b},${al})`;
+        cx.lineWidth=.9;cx.stroke();
+      }
+    }
+    for(const p of pts){p.tick();p.draw()}
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('resize',()=>{sz();init()});
+  addEventListener('mousemove',e=>{mx.x=e.clientX;mx.y=e.clientY});
+  addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mx.x=t.clientX;mx.y=t.clientY}},{passive:true});
+  addEventListener('mouseleave',()=>{mx.x=-9999;mx.y=-9999});
+
+  sz();init();frame();
+
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1});
+  document.querySelectorAll('.adv-card,.svc-item').forEach(el=>io.observe(el));
+})();
+</script>
 </body>
 </html>
